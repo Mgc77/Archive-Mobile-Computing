@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -136,4 +137,22 @@ public class SQLiteManager extends SQLiteOpenHelper
             return null;
         }
     }
+
+    public ArrayList<Note> getNoteData()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Note> arrayList=new ArrayList<>( );
+        Cursor cursor = db.rawQuery(" SELECT * FROM " + TABLE_NAME,null);
+        while (cursor.moveToNext())
+        {
+            int id=cursor.getInt(0);
+            String title=cursor.getString(1);
+            String description=cursor.getString(2);
+            Note note =new Note(id,title,description);
+            arrayList.add(note);
+        }
+        return arrayList;
+    }
+
+
 }

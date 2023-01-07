@@ -10,11 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteAdapter extends ArrayAdapter<Note>
 {
-    public NoteAdapter(Context context, List<Note> notes)
+    public NoteAdapter(Context context, int i, List<Note> notes)
     {
         super(context, 0, notes);
     }
@@ -34,5 +35,10 @@ public class NoteAdapter extends ArrayAdapter<Note>
         desc.setText(note.getDescription());
 
         return convertView;
+    }
+
+    public void searchFilter(ArrayList<Note> searchList)
+    {
+
     }
 }

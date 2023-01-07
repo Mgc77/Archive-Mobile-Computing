@@ -1,6 +1,7 @@
 package com.example.archivemobilecomputing;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Note
@@ -12,6 +13,8 @@ public class Note
     private String title;
     private String description;
     private Date deleted;
+
+
 
     public Note(int id, String title, String description, Date deleted)
     {
@@ -90,5 +93,11 @@ public class Note
     public void setDeleted(Date deleted)
     {
         this.deleted = deleted;
+    }
+
+    public void searchFilter(ArrayList<Note> searchList)
+    {
+        noteArrayList=new ArrayList<>();
+        noteArrayList.addAll(searchList);
     }
 }
