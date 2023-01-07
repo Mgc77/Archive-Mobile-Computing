@@ -5,12 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
 {
     private ListView noteListView;
+    ArrayList<Note> searchList;
+    Note adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,10 +34,44 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     private void initWidgets()
     {
         noteListView = findViewById(R.id.noteListView);
+
+        SearchView searchView = findViewById(R.id.noteListSearchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s)
+            {
+                s=s.toLowerCase() ;
+                searchList=new ArrayList<>();
+                for(Note note: adapter.nonDeletedNotes())
+                {
+                    String name= note.getDescription().toLowerCase();
+                    if (name.contains(s))
+                    {
+                        searchList.add(note);
+                    }
+                }
+
+                NoteAdapter adapter = new NoteAdapter((getApplicationContext()),0,searchList);
+                noteListView.setAdapter(adapter);
+                return false;
+            }
+        });
+
+
     }
+
+
+
 
     private void loadFromDBToMemory()
     {
@@ -37,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setNoteAdapter()
     {
-        NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(), Note.nonDeletedNotes());
+        NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(), 0, Note.nonDeletedNotes());
         noteListView.setAdapter(noteAdapter);
     }
 
@@ -64,10 +108,14 @@ public class MainActivity extends AppCompatActivity
         startActivity(newNoteIntent);
     }
 
+
     @Override
     protected void onResume()
     {
         super.onResume();
         setNoteAdapter();
     }
+
+
+
 }
