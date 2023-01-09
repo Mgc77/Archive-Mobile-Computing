@@ -37,8 +37,4 @@ public class NoteAdapter extends ArrayAdapter<Note>
         return convertView;
     }
 
-    public void searchFilter(ArrayList<Note> searchList)
-    {
-
-    }
 }

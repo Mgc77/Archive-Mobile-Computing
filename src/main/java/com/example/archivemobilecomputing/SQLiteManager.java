@@ -54,7 +54,7 @@ public class SQLiteManager extends SQLiteOpenHelper
                 .append(TABLE_NAME)
                 .append("(")
                 .append(COUNTER)
-                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(" INTEGER PRIMARY KEY, ")
                 .append(ID_FIELD)
                 .append(" INT, ")
                 .append(TITLE_FIELD)
@@ -138,21 +138,6 @@ public class SQLiteManager extends SQLiteOpenHelper
         }
     }
 
-    public ArrayList<Note> getNoteData()
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Note> arrayList=new ArrayList<>( );
-        Cursor cursor = db.rawQuery(" SELECT * FROM " + TABLE_NAME,null);
-        while (cursor.moveToNext())
-        {
-            int id=cursor.getInt(0);
-            String title=cursor.getString(1);
-            String description=cursor.getString(2);
-            Note note =new Note(id,title,description);
-            arrayList.add(note);
-        }
-        return arrayList;
-    }
 
 
 }

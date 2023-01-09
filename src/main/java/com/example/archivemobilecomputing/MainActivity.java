@@ -5,19 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
 {
-    private ListView noteListView;
+    private ListView noteList;
     ArrayList<Note> searchList;
     Note adapter;
 
@@ -37,7 +33,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initWidgets()
     {
-        noteListView = findViewById(R.id.noteListView);
+        noteList = findViewById(R.id.noteListView);
 
         SearchView searchView = findViewById(R.id.noteListSearchView);
 
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 NoteAdapter adapter = new NoteAdapter((getApplicationContext()),0,searchList);
-                noteListView.setAdapter(adapter);
+                noteList.setAdapter(adapter);
                 return false;
             }
         });
@@ -82,18 +78,18 @@ public class MainActivity extends AppCompatActivity
     private void setNoteAdapter()
     {
         NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(), 0, Note.nonDeletedNotes());
-        noteListView.setAdapter(noteAdapter);
+        noteList.setAdapter(noteAdapter);
     }
 
 
     private void setOnClickListener()
     {
-        noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        noteList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
             {
-                Note selectedNote = (Note) noteListView.getItemAtPosition(position);
+                Note selectedNote = (Note) noteList.getItemAtPosition(position);
                 Intent editNoteIntent = new Intent(getApplicationContext(), NoteDetailActivity.class);
                 editNoteIntent.putExtra(Note.NOTE_EDIT_EXTRA, selectedNote.getId());
                 startActivity(editNoteIntent);

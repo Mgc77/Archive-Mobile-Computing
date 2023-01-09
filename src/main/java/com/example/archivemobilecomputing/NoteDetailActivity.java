@@ -3,16 +3,14 @@ package com.example.archivemobilecomputing;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.widget.DatePicker;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Calendar;
 
@@ -107,15 +105,10 @@ public class NoteDetailActivity extends AppCompatActivity
 
     private void initDatePicker()
     {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day)
-            {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                dateButton.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            dateButton.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -127,6 +120,7 @@ public class NoteDetailActivity extends AppCompatActivity
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
         //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        //for future development
 
     }
 
@@ -164,7 +158,6 @@ public class NoteDetailActivity extends AppCompatActivity
         if(month == 12)
             return "DEC";
 
-        //default should never happen
         return "JAN";
     }
 

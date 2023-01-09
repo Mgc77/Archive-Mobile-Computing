@@ -60,10 +60,6 @@ public class Note
         return id;
     }
 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public String getTitle()
     {
@@ -95,9 +91,4 @@ public class Note
         this.deleted = deleted;
     }
 
-    public void searchFilter(ArrayList<Note> searchList)
-    {
-        noteArrayList=new ArrayList<>();
-        noteArrayList.addAll(searchList);
-    }
 }
